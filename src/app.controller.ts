@@ -23,7 +23,7 @@ export class AppController {
     const schema = Joi.object({
       type: Joi.string().valid('debit', 'credit').required(),
       description: Joi.string().required(),
-      value: Joi.number().required(),
+      value: Joi.number().min(0).required(),
       date: Joi.date().required(),
     }).options({
       abortEarly: false,
