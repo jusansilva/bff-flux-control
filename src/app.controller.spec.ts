@@ -42,6 +42,20 @@ describe('AppController', () => {
         }),
       ).toMatchObject({});
     });
+
+    it('should created launch error negative value', () => {
+      const errorMessages = '"value" must be larger than or equal to 0.01';
+      try {
+        appController.createLaunch({
+          type: 'credit',
+          description: 'Receive Door 4',
+          value: -10,
+          date: new Date(),
+        });
+      } catch (error) {
+        expect(error.message).toBe(errorMessages);
+      }
+    });
   });
 
   describe('find Launch', () => {

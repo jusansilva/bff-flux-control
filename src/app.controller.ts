@@ -23,7 +23,7 @@ export class AppController {
     const schema = Joi.object({
       type: Joi.string().valid('debit', 'credit').required(),
       description: Joi.string().required(),
-      value: Joi.number().min(0).required(),
+      value: Joi.number().min(0.01).required(),
       date: Joi.date().required(),
     }).options({
       abortEarly: false,
@@ -35,6 +35,7 @@ export class AppController {
       const errorMessages = validated.error.details
         .map((d) => d.message)
         .join();
+
       throw new BadRequestException(errorMessages);
     }
     return this.appService.createLaunch(createLaunchRequest);
